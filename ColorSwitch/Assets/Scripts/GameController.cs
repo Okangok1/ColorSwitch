@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
         }
         PlayerPrefs.SetInt("Score", 0);
         Debug.Log("En yüksek Skor :" + PlayerPrefs.GetInt("HighestScore"));
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
 
     }
     public void GetObstacles()

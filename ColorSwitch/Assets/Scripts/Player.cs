@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private GameController gameController;
+    private float resetTimer = 2f;
+    public bool isPlayerDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isPlayerDead)
         {
             isJumping = true;
         }
@@ -38,7 +40,14 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-
+        if (isPlayerDead)
+        {
+            resetTimer -= Time.deltaTime;
+            if (resetTimer <= 0)
+            {
+                gameController.GameOver();
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -82,7 +91,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.tag != currentColor && collision.gameObject.tag != "Circle" && collision.gameObject.tag != "Score" && collision.gameObject.tag != "ColorChanger" && collision.gameObject.tag!="ClickableArea")
         {
-            gameController.GameOver();
+            isPlayerDead = true;
             return;
         }
         if (collision.gameObject.tag == "Score")

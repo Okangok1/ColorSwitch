@@ -12,7 +12,11 @@ public class ClickAbleArea : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        Debug.Log("ekrana tıklandı");
-        player.isJumping = true;
+        if (player.isPlayerDead==false)
+        {
+            Debug.Log("ekrana tıklandı");
+            player.isJumping = true;
+        }
+
     }
 }
